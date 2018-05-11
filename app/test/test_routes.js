@@ -7,17 +7,17 @@ let server = require('../app');
 
 chai.use(chaiHttp);
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/quotesDB');
-
-before(() => {
-  console.log('before()');
+before((done) => {
+  const mongoose = require('mongoose');
   mongoose.connection.dropDatabase();
+
+  // Re connect to database
+  mongoose.connect('mongodb://localhost:27017/quotesDB');
+  done();
 });
 
 after(() => {
-  mongoose.disconnect();
-  console.log('after()');
+  server.stop();
 });
 
 describe('Integration Tests', function (done) {
@@ -47,7 +47,7 @@ describe('Integration Tests', function (done) {
       .post('/quotes/addQuote')
       .send({
           author: 'William Shakespeare',
-          text: 'To be, or not to be, that is the question'
+          quote: 'To be, or not to be, that is the question'
       })
       .end((err, res) => {
         expect(err).to.be.eql(null);
@@ -67,7 +67,7 @@ describe('Integration Tests', function (done) {
       .end((err, res) => {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
-        expect(res.text).to.be.eql('quote');
+        expect(res.text).to.be.eql('To be, or not to be, that is the question');
       });
       done();
   });
