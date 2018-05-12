@@ -22,3 +22,5 @@ run:
 stop:
 	sudo docker ps | grep ${APP_NAME} | awk '{print $$1}' | sudo xargs -I{} docker stop {}
 
+test:
+	cd app; yarn test
