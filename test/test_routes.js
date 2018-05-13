@@ -37,7 +37,7 @@ describe('Integration Tests', function (done) {
       .end((err, res) => {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
-        expect(res.text).to.be.eql('quotes_DB 0.0.0');
+        expect(res.text).to.be.eql('quotes_DB 0.0.1');
       });
     done();
   });
