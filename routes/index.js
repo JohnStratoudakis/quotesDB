@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/version', function(req, res, next) {
   console.log('INDEX.JS');
-  res.send('quotes_DB 0.0.0');
+  res.send('quotes_DB 0.0.1');
 });
 
 module.exports = router;
