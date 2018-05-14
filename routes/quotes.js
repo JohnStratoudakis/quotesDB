@@ -32,8 +32,28 @@ const quoteSchema = new Schema({
   }
 });
 
+router.get('/random', function(req, res, next) {
+  console.log('/random');
+
+  var QuoteModel = mongoose.model('newQuote', quoteSchema);
+  const query = QuoteModel.findOne()
+    .then((quote) => {
+      console.log('/random returning: ' + quote);
+      res
+        .status(200)
+        .send(quote);
+    })
+    .catch((error) => {
+      console.log("CATCH");
+      res
+        .status(500)
+        .send('Error: ' + error);
+    });
+});
+
 router.post('/addQuote', function(req, res, next) {
   console.log('/addQuote');
+  console.log('Request: ' + res);
 
   // Add new quote to mongodb
   var quoteJson = req.body;
