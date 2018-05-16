@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Logging in to Docker"
-echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_USERNAME" --password-stdin
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 echo "Pushing docker image"
 docker push johnstratoudakis/quotesdb
