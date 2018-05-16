@@ -1,22 +1,20 @@
 sudo: required
-
 cache:
   directories:
-    - "node_modules"
-
+  - node_modules
 language: node_js
 node_js:
-  - "8"
-  
+- '8'
 services:
-  - mongodb
-  - docker
-
+- mongodb
+- docker
 before_install:
-  - docker build -t johnstratoudakis/quotesdb .
-  
+- docker build -t johnstratoudakis/quotesdb .
 deploy:
   provider: script
   script: bash docker_push
   on:
     branch: master
+env:
+  matrix:
+    secure: LLK8AS7m8C2xwq2z7z3zKQYxrfbu++O9mNQeJnWZ3QUTz9VScaJVC6N4EqC2zfTXa+KwkI1rVUK3XXIra/q+fvwSiSJF9Tdq/cCc9hsW3eoA3Dc1htHTkPxuji+7OFVMLilTNKYzv5V61CX6lr6MH12YLCCC5Xthvr/MC9oOrsHpxfIdPzu5Rphp0r8wEmMSYXY1k8z+v5BBbO1OjJ4JUr9JAVjJew48ElzqXBNUSbwc4pdhrvtRNkJWV0xhbuospWAK2OydhbBMTcMwV1UcEc49UnRqhrxusT+j+V0TrxnTMSyI3mAz3ZVP0n+DR/u7PnUJEv+r8f2TVbthbdlRy/rqIbGbbjmKc8DhBReHpll23qIY2vBy/sACWET2mmf4Y0OaxWT19zzhxQeFvWNz0qLppWbzWQX1Znb5WPSp7eTEiucd4MNrjdPMRLm1WUoU1gWVIRXXaLGeWaubzfk6JlVPnEXXhDFaAEsAYnqd1b6FmmknCVJCvqmBeMHG3YXuXyIpP4nZjU5a4B7BH1+773oO0Ge4QvOoV9syIYtclcWgTX7bCLXyDI/6Bg4oTrJJoHTGQqnX37jg8iZqWLrLZOh0+3rnGJZ7BAOWLRY7cbjossypP14NZyxNb2ESomPzY1FtEsbqcutuc3XWkPqfhyn5mAvTPNRtPmski0r2KmU=
