@@ -1,4 +1,4 @@
-#sudo: required
+sudo: required
 
 cache:
   directories:
@@ -10,7 +10,13 @@ node_js:
   
 services:
   - mongodb
+  - docker
 
-#before_install:
-#  - docker build -t johnstratoudakis/quotes .
+before_install:
+  - docker build -t johnstratoudakis/quotesdb .
   
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
