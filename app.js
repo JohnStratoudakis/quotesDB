@@ -5,14 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const http = require('http');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var quotesRouter = require('./routes/quotes');
 
 // DB Setup
 console.log('Connecting to MongoDb');
-mongoose.connect('mongodb://localhost:27017/quotesDB');
+//mongoose.connect('mongodb://localhost:27017/quotesDB');
 
 var app = express();
 
@@ -55,10 +55,10 @@ function stop () {
   console.log('app.js:stop()');
   server.close();
   console.log('after calling app.stop()');
-  mongoose.disconnect();
-  console.log('after calling mongoose.disconnect()');
+  //mongoose.disconnect();
+  //console.log('after calling mongoose.disconnect()');
 }
 
 module.exports = app;
 module.exports.stop = stop;
-module.exports.database = mongoose;
+//module.exports.database = mongoose;
