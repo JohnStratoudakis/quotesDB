@@ -1,6 +1,7 @@
 
 APP_NAME=quotesdb
 REPO_NAME=johnstratoudakis
+IDS=$(shell docker ps --filter 'label=quotes_db' -q)
 
 ifeq ($(OS),Windows_NT)
     #Windows stuff
@@ -15,14 +16,14 @@ endif
 start_db:
 	@echo Starting Database backend
 	@echo ARCH=${ARCH}
-	docker run --name quotes_db --rm --label quotes_db -p 6379:6379 -d redis
+	docker run --name quotes_db --rm --label quotes_db -p 27017:27017 -d mongo
 
+# On Windows, shell
 stop_db:
 	@echo Stopping Database backend
-	@# On Windows, shell
-	docker stop $(shell docker ps --filter "label=quotes_db" -q)
-	@# On Linux/OSX, bash or nothing 
-	#docker stop $(shell docker ps --filter "label=quotes_db" -q)
+	@docker stop ${IDS}
+	@rem # On Linux/OSX, bash or nothing 
+	@rem #docker stop $(shell docker ps --filter "label=quotes_db" -q)
 
 build:
 	@echo "Building Docker Container"
