@@ -1,6 +1,29 @@
 
 APP_NAME=quotesdb
 REPO_NAME=johnstratoudakis
+IDS=$(shell docker ps --filter 'label=quotes_db' -q)
+
+ifeq ($(OS),Windows_NT)
+    #Windows stuff
+    ARCH=Win
+else
+    #Linux stuff
+    ARCH=Linux
+endif
+
+.PHONY: test
+
+start_db:
+	@echo Starting Database backend
+	@echo ARCH=${ARCH}
+	docker run --name quotes_db --rm --label quotes_db -p 27017:27017 -d mongo
+
+# On Windows, shell
+stop_db:
+	@echo Stopping Database backend
+	@docker stop ${IDS}
+	@rem # On Linux/OSX, bash or nothing 
+	@rem #docker stop $(shell docker ps --filter "label=quotes_db" -q)
 
 build:
 	@echo "Building Docker Container"
@@ -14,3 +37,6 @@ stop:
 
 test:
 	yarn test
+
+load_db:
+	echo "Loading Database"

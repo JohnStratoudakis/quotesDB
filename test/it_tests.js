@@ -4,20 +4,18 @@ import { expect } from 'chai';
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../app');
+var mongoose = require('mongoose');
 
 chai.use(chaiHttp);
 
 before((done) => {
-  const mongoose = require('mongoose');
   mongoose.connection.dropDatabase();
-
-  // Re connect to database
-  mongoose.connect('mongodb://localhost:27017/quotesDB');
   done();
 });
 
-after(() => {
+after((done) => {
   server.stop();
+  done();
 });
 
 describe('Integration Tests', function (done) {
@@ -27,8 +25,8 @@ describe('Integration Tests', function (done) {
       .end((err, res) => {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
+        done();
       });
-    done();
   });
 
   it('Check Version', function (done) {
@@ -37,9 +35,9 @@ describe('Integration Tests', function (done) {
       .end((err, res) => {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
-        expect(res.text).to.be.eql('quotes_DB 0.0.3');
+        expect(res.text).to.be.eql('quotes_DB 0.0.4');
+        done();
       });
-    done();
   });
 
   it('Add Quote', function (done) {
@@ -53,11 +51,11 @@ describe('Integration Tests', function (done) {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
         expect(res.text).to.be.eql('Successfully added a quote by William Shakespeare');
+        done();
       });
-      done();
   });
 
-  it('Get a Random Quote via a GET request', function (done) {
+  it('Get a William Shakespeare quote via a GET request', function (done) {
     chai.request(server)
       .post('/quotes/getQuote')
       .send({
@@ -67,11 +65,14 @@ describe('Integration Tests', function (done) {
       .end((err, res) => {
         expect(err).to.be.eql(null);
         expect(res.status).to.be.eql(200);
-        expect(res.text).to.be.eql('To be, or not to be, that is the question');
+        var quoteJs = JSON.parse(res.text);
+        expect(quoteJs['author']).to.be.eql('William Shakespeare');
+        expect(quoteJs['quote']).to.be.eql('To be, or not to be, that is the question');
+        done();
       });
-      done();
   });
 
+/*
   it('Get a Quote by William Shakespeare', function (done) {
     chai.request(server)
       .post('/quotes/getQuote')
@@ -86,4 +87,5 @@ describe('Integration Tests', function (done) {
       });
       done();
   });
+  */
 });

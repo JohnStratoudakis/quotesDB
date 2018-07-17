@@ -10,8 +10,9 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var quotesRouter = require('./routes/quotes');
 
+console.log("APP APP APP APP APP APP");
 // DB Setup
-console.log('Connecting to MongoDb');
+console.log('Connecting to Database');
 mongoose.connect('mongodb://localhost:27017/quotesDB');
 
 var app = express();
@@ -52,11 +53,8 @@ server.listen(port);
 console.log('Server listening on:', port);
 
 function stop () {
-  console.log('app.js:stop()');
   server.close();
-  console.log('after calling app.stop()');
   mongoose.disconnect();
-  console.log('after calling mongoose.disconnect()');
 }
 
 module.exports = app;
