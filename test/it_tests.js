@@ -71,21 +71,4 @@ describe('Integration Tests', function (done) {
         done();
       });
   });
-
-/*
-  it('Get a Quote by William Shakespeare', function (done) {
-    chai.request(server)
-      .post('/quotes/getQuote')
-      .send({
-          author: 'William Shakespeare',
-          text: 'To be, or not to be, that is the question'
-      })
-      .end((err, res) => {
-        expect(err).to.be.eql(null);
-        expect(res.status).to.be.eql(200);
-        expect(res.text).to.be.eql('To be, or not to be, that is the question');
-      });
-      done();
-  });
-  */
 });
