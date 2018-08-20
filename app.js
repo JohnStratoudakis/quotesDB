@@ -13,7 +13,7 @@ var quotesRouter = require('./routes/quotes');
 console.log("APP APP APP APP APP APP");
 // DB Setup
 console.log('Connecting to Database');
-mongoose.connect('mongodb://localhost:27017/quotesDB');
+mongoose.connect('mongodb://mongo:27017/quotesDB');
 
 var app = express();
 
