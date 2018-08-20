@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec babel-node bin/www",
-    "test": "mocha --colors --require babel-core/register --timeout 15000 --recursive ./test",
+    "test": "mocha --colors --require babel-core/register --timeout 25000 --recursive ./test",
     "start": "node ./bin/www"
   },
   "dependencies": {
