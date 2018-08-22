@@ -9,7 +9,7 @@ cache:
     - node_modules/
 
 services:
-  - mongo
+  - mongodb
 
 variables:
   MONGO_DATABASE: quotesDB
