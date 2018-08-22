@@ -13,7 +13,15 @@ var quotesRouter = require('./routes/quotes');
 console.log("APP APP APP APP APP APP");
 // DB Setup
 console.log('Connecting to Database');
-mongoose.connect('mongodb://mongo:27017/quotesDB');
+
+var mongoHost = "127.0.0.1";
+
+if(process.env.database) {
+  mongoHost = process.env.database;
+  console.log("Overriding mongo host to " + mongoHost);
+}
+console.log("MONGO Database host: " + mongoHost);
+mongoose.connect('mongodb://' + mongoHost + ':27017/quotesDB');
 
 var app = express();
 

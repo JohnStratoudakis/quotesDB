@@ -1,4 +1,7 @@
 
+# How to delete all docker images from Powershell
+# docker images -qa | foreach {docker rmi $_}
+
 APP_NAME=quotesdb
 REPO_NAME=johnstratoudakis
 IDS=$(shell docker ps --filter 'label=quotes_db' -q)
@@ -27,10 +30,15 @@ stop_db:
 
 build:
 	@echo "Building Docker Container"
-	sudo docker build -t ${REPO_NAME}:${APP_NAME} .
+	@rem sudo docker build -t ${REPO_NAME}:${APP_NAME} .
+	docker build -t ${REPO_NAME}/${APP_NAME}:win -f Dockerfile.win .
 
 run:
-	docker run --rm -d --label ${APP_NAME} -p 0.0.0.0:3000:3000 ${REPO_NAME}:${APP_NAME}
+	docker run --rm --label ${APP_NAME} -p 3000:3000 ${REPO_NAME}/${APP_NAME}:win
+
+run_it:
+	@rem jdocker run --rm -d --label ${APP_NAME} -p 0.0.0.0:3000:3000 ${REPO_NAME}/${APP_NAME}:win
+	docker run --rm -it --label ${APP_NAME} -p 3000:3000 ${REPO_NAME}/${APP_NAME}:win cmd.exe
 
 stop:
 	docker stop $$(docker ps -q -a --filter label=${APP_NAME})
