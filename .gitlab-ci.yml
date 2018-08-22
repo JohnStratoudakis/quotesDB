@@ -30,4 +30,4 @@ test_with_lab:
   script: echo $MONGO_HOST; npm test
   variables:
     MONGO_HOST: mongo
-    DATABASE_URL: mongodb
+    DATABASE_URL: mongo
