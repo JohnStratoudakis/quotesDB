@@ -27,7 +27,7 @@ install_dependencies:
 
 test_with_lab:
   stage: test
-  script: npm test
+  script: echo $MONGO_HOST; npm test
   variables:
     MONGO_HOST: mongo2
     DATABASE_URL: mongo2
