@@ -12,7 +12,6 @@ services:
   - mongo
 
 variables:
-  Host: mongo
   Database: quotesDB
 
 install_dependencies:
