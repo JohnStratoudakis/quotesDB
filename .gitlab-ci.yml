@@ -29,5 +29,5 @@ test_with_lab:
   stage: test
   script: echo $MONGO_HOST; npm test
   variables:
-    MONGO_HOST: mongo2
-    DATABASE_URL: mongo2
+    MONGO_HOST: mongo
+    DATABASE_URL: mongo
