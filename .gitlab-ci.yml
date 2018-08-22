@@ -9,7 +9,7 @@ cache:
     - node_modules/
 
 services:
-  - mongodb:latest
+  - mongo
 
 variables:
   Host: mongo
