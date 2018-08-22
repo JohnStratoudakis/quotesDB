@@ -17,7 +17,7 @@ console.log('Connecting to Database');
 var mongoHost = "127.0.0.1";
 
 if(process.env.database) {
-  mongoHost = process.env.database;
+  mongoHost = process.env.MONGO_HOST;
   console.log("Overriding mongo host to " + mongoHost);
 }
 console.log("MONGO Database host: " + mongoHost);
