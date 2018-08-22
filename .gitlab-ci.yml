@@ -13,6 +13,7 @@ services:
 
 variables:
   MONGO_DATABASE: quotesDB
+  MONGO_HOST: mongo
 
   Host: mongo
   Database: quotesDB
