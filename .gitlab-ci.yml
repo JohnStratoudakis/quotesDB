@@ -9,12 +9,9 @@ cache:
     - node_modules/
 
 services:
-  - mongo:latest
+  - mongodb:latest
 
 variables:
-  MONGO_DATABASE: quotesDB
-  MONGO_HOST: mongo
-
   Host: mongo
   Database: quotesDB
 
