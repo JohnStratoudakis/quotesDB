@@ -10,7 +10,6 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var quotesRouter = require('./routes/quotes');
 
-console.log("APP APP APP APP APP APP");
 // DB Setup
 console.log('Connecting to Database');
 
