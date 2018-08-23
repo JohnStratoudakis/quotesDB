@@ -9,7 +9,7 @@ services:
 - mongodb
 - docker
 before_install:
-- docker build -f Dockerfile.win -t johnstratoudakis/quotesdb .
+- docker build -t johnstratoudakis/quotesdb .
 deploy:
   provider: script
   script: bash docker_push
