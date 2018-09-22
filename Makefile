@@ -28,10 +28,16 @@ stop_db:
 	@rem # On Linux/OSX, bash or nothing 
 	@rem #docker stop $(shell docker ps --filter "label=quotes_db" -q)
 
-build:
+
+build_lin:
 	@echo "Building Docker Container"
-	@rem sudo docker build -t ${REPO_NAME}:${APP_NAME} .
-	docker build -t ${REPO_NAME}/${APP_NAME}:win -f Dockerfile.win .
+	sudo docker build -t ${REPO_NAME}/${APP_NAME}:linux .
+
+build_win:
+	@#docker build -t ${REPO_NAME}/${APP_NAME}:win -f Dockerfile.win .
+
+push_lin:
+	sudo docker push ${REPO_NAME}/${APP_NAME}:linux
 
 run:
 	docker run --rm --label ${APP_NAME} -p 3000:3000 ${REPO_NAME}/${APP_NAME}:win
