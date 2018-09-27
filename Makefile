@@ -22,9 +22,11 @@ start_db:
 	docker run --name quotes_db --rm --label quotes_db -p 27017:27017 -d mongo
 
 # On Windows, shell
-stop_db:
+stop_db_lin:
 	@echo Stopping Database backend
 	@docker stop ${IDS}
+
+stop_db_win:
 	@rem # On Linux/OSX, bash or nothing 
 	@rem #docker stop $(shell docker ps --filter "label=quotes_db" -q)
 
