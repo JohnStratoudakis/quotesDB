@@ -10,8 +10,13 @@ ifeq ($(OS),Windows_NT)
     ARCH=win
 else
 	UNAME_S := $(shell uname -s)
+	UNAME_M := $(shell uname -m)
     ifeq ($(UNAME_S),Linux)
-		ARCH=linux
+		ifeq ($(UNAME_M),armv7l)
+			ARCH=rpi
+		else
+			ARCH=linux
+		endif
     endif
     ifeq ($(UNAME_S),Darwin)
     	ARCH=osx
@@ -20,8 +25,13 @@ endif
 
 .PHONY: test
 
+echo_arch:
+	@echo Kernel = ${UNAME_S}
+	@echo Machine = ${UNAME_M}
+	@echo Arch = ${ARCH}
+
 start_db_win:
-	@echo start_db_linux
+	@echo start_db_win
 
 start_db_linux:
 	@echo start_db_linux
@@ -35,12 +45,26 @@ start_db: start_db_${ARCH}
 
 stop_db_win:
 	docker stop $(shell docker ps --filter "label=quotes_db" -q)
+	rem @docker stop ${IDS}
 
 stop_db_linux:
-	@docker stop ${IDS}
+
+start_db_rpi:
+	@echo Starting Database backend
+	@echo ARCH=${ARCH}
+	docker run --name quotes_db --rm --label quotes_db -p 27017:27017 -d nonoroazoro/rpi-mongo 
 
 stop_db_osx:
 	@docker stop ${IDS}
+
+# On Rpi, shell
+stop_db_rpi:
+	@echo Stopping Database backend
+	docker stop $(shell docker ps --filter "label=quotes_db" -q)
+
+build_rpi:
+	@echo "Building Docker Container"
+	sudo docker build -t ${REPO_NAME}/${APP_NAME}:rpi .
 
 stop_db: stop_db_${ARCH}
 	@echo Stopping Database backend
